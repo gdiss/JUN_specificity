@@ -1,0 +1,2 @@
+phenotype	transformation	trait	file
+Binding	TwoStateFractionFoldedMod	"Binding,BindingMod"	input_Mochi.RData

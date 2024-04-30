@@ -1,0 +1,121 @@
+
+
+
+******* DiMSum wrapper command-line arguments *******
+
+
+runDemo                 FALSE
+fastqFileExtension      .fastq
+gzipped                 TRUE
+stranded                TRUE
+paired                  TRUE
+barcodeErrorRate        0.25
+experimentDesignPath    000-data/experimentDesign_Jun.txt
+experimentDesignPairDuplicates
+                        FALSE
+countPath               000-data/dimsum_input.txt
+cutadaptMinLength       50
+cutadaptErrorRate       0.2
+cutadaptOverlap         3
+vsearchMinQual          30
+vsearchMaxee            0.5
+vsearchMinovlen         10
+outputPath              ./
+projectName             004-dimsum_output
+wildtypeSequence        CAGGAGCGGATCAAGGCGGAGAGGAAGCGCATGAGGAACCGCATCGCTGCCTCCAAGTGCCGAAAAAGGAAGCTGGAGAGAATCGCCCGGCTGGAGGAAAAAGTGAAAACGTTGAAAGCTCAGAACTCGGAGCTGGCGTCCACGGCCAACATGCTCAGGGAACAGGTGGCACAGCTTAAACAGAAAGTCATGAACTAACCTA
+reverseComplement       FALSE
+sequenceType            noncoding
+mutagenesisType         random
+transLibrary            FALSE
+transLibraryReverseComplement
+                        FALSE
+bayesianDoubleFitness   FALSE
+bayesianDoubleFitnessLamD
+                        0.025
+fitnessMinInputCountAll
+                        0
+fitnessMinInputCountAny
+                        0
+fitnessMinOutputCountAll
+                        0
+fitnessMinOutputCountAny
+                        0
+fitnessHighConfidenceCount
+                        10
+fitnessDoubleHighConfidenceCount
+                        50
+fitnessNormalise        TRUE
+fitnessErrorModel       TRUE
+indels                  none
+maxSubstitutions        202
+mixedSubstitutions      FALSE
+retainIntermediateFiles
+                        FALSE
+splitChunkSize          3758096384
+retainedReplicates      all
+startStage              4
+stopStage               5
+numCores                8
+help                    FALSE
+
+
+******* Running DiMSum pipeline *******
+
+
+Package version         1.2.9
+R version               R version 4.1.1 (2021-08-10)
+
+
+
+******* Binary dependency versions *******
+
+
+Pandoc                  pandoc 2.16.2
+
+
+
+******* DiMSum STAGE 4 (STEAM): PROCESS VARIANT SEQUENCES *******
+
+
+Loading variant count files:
+000-data/dimsum_input.txt
+Processing...
+	dimsum_input.txt
+Processing merged variants...
+Done
+Saving merged variant data...
+Done
+
+
+
+******* DiMSum STAGE 5 (STEAM): ANALYSE VARIANT COUNTS *******
+
+
+Filtering out low count nucleotide variants...
+Done
+Aggregating counts for biological output replicates...
+Done
+Fit error model...
+Done
+Calculating fitness and error...
+Done
+Skipping Bayesian double mutant fitness estimation
+Normalising fitness and error for differences in number of generations...
+Done
+Merging fitness estimates from biological replicates...
+Done
+Inferring growth rates...
+Fitness vs. growth rate correlation for replicate 1: 1
+Fitness vs. growth rate correlation for replicate 2: 1
+Fitness vs. growth rate correlation for replicate 3: 1
+Fitness vs. growth rate correlation for replicate 4: 1
+Fitness vs. growth rate correlation for replicate 5: 1
+Fitness vs. growth rate correlation for replicate 6: 1
+Done
+Saving fitness estimates...
+Done
+
+
+
+Saving workspace image...
+Done

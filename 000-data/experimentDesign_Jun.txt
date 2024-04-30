@@ -1,0 +1,13 @@
+sample_name	experiment_replicate	selection_id	selection_replicate	technical_replicate	generations	cell_density	selection_time
+i1	1	0		1		0.05	
+i2	2	0		1		0.05	
+i3	3	0		1		0.05	
+i4	4	0		1		0.05	
+i5	5	0		1		0.05	
+i6	6	0		1		0.05	
+o1	1	1	1	1	5.005759269	1.6064	31.583
+o2	2	1	1	1	5.109193378	1.7258	32
+o3	3	1	1	1	5.075190314	1.6856	31.583
+o4	4	1	1	1	5.030689204	1.6344	31.25
+o5	5	1	1	1	5.049979203	1.6564	31.25
+o6	6	1	1	1	4.925239905	1.5192	32

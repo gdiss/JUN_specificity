@@ -1,0 +1,267 @@
+This is cutadapt 1.18 with Python 3.6.6
+Command line parameters: -g ^CCTAGG -G GGATCCAAGCTT -e 0.1 -u -1 -U -1 -O 6 --max-n=0 -j 4 --discard-untrimmed -o tmp/trimmed_jun_f.fastq.gz -p tmp/trimmed_jun_r.fastq.gz /tungstenfs/groups/gbioinfo/seqdata/2752F1-1_210310_NB501735_0670_AHJ2YFAFX2_ATCACG-NoIndex_L000_R1_001.fastq.gz /tungstenfs/groups/gbioinfo/seqdata/2752F1-1_210310_NB501735_0670_AHJ2YFAFX2_ATCACG-NoIndex_L000_R2_001.fastq.gz
+Processing reads on 4 cores in paired-end mode ...
+Finished in 1241.15 s (34 us/read; 1.75 M reads/minute).
+
+=== Summary ===
+
+Total read pairs processed:         36,137,913
+  Read 1 with adapter:              35,848,651 (99.2%)
+  Read 2 with adapter:              35,233,920 (97.5%)
+Pairs with too many N:                  58,332 (0.2%)
+Pairs written (passing filters):    34,942,238 (96.7%)
+
+Total basepairs processed: 10,913,649,726 bp
+  Read 1: 5,456,824,863 bp
+  Read 2: 5,456,824,863 bp
+Total written (filtered):  9,400,580,255 bp (86.1%)
+  Read 1: 5,031,682,272 bp
+  Read 2: 4,368,897,983 bp
+
+=== First read: Adapter 1 ===
+
+Sequence: CCTAGG; Type: anchored 5'; Length: 6; Trimmed: 35848651 times.
+
+No. of allowed errors:
+0-6 bp: 0
+
+Overview of removed sequences
+length	count	expect	max.err	error counts
+6	35848651	8822.7	0	35848651
+
+=== Second read: Adapter 2 ===
+
+Sequence: GGATCCAAGCTT; Type: regular 5'; Length: 12; Trimmed: 35233920 times.
+
+No. of allowed errors:
+0-9 bp: 0; 10-12 bp: 1
+
+Overview of removed sequences
+length	count	expect	max.err	error counts
+6	2	8822.7	0	2
+12	1	2.2	1	1
+14	1	2.2	1	1
+15	57	2.2	1	57
+16	18	2.2	1	18
+17	143	2.2	1	138 5
+18	739	2.2	1	729 10
+19	779	2.2	1	754 25
+20	1650	2.2	1	1608 42
+21	8679	2.2	1	8553 126
+22	16939	2.2	1	16592 347
+23	77446	2.2	1	75680 1766
+24	919170	2.2	1	884973 34197
+25	34158741	2.2	1	33971001 187740
+26	49408	2.2	1	20697 28711
+27	40	2.2	1	15 25
+28	5	2.2	1	5
+30	2	2.2	1	2
+31	2	2.2	1	2
+32	1	2.2	1	1
+33	3	2.2	1	3
+34	1	2.2	1	1
+35	3	2.2	1	3
+36	1	2.2	1	1
+37	1	2.2	1	1
+38	1	2.2	1	1
+40	1	2.2	1	1
+41	4	2.2	1	4
+42	2	2.2	1	1 1
+43	1	2.2	1	1
+45	2	2.2	1	2
+48	3	2.2	1	3
+49	5	2.2	1	4 1
+50	14	2.2	1	14
+52	1	2.2	1	1
+53	3	2.2	1	3
+54	2	2.2	1	2
+55	5	2.2	1	5
+56	2	2.2	1	2
+57	2	2.2	1	2
+58	25	2.2	1	22 3
+61	2	2.2	1	2
+62	2	2.2	1	2
+63	2	2.2	1	2
+66	1	2.2	1	1
+67	1	2.2	1	1
+68	4	2.2	1	4
+100	1	2.2	1	0 1
+116	1	2.2	1	0 1
+141	1	2.2	1	0 1
+
+ ____  _____    _    ____ 
+|  _ \| ____|  / \  |  _ \
+| |_) |  _|   / _ \ | |_) |
+|  __/| |___ / ___ \|  _ <
+|_|   |_____/_/   \_\_| \_\
+
+PEAR v0.9.11 [Nov 5, 2017]
+
+Citation - PEAR: a fast and accurate Illumina Paired-End reAd mergeR
+Zhang et al (2014) Bioinformatics 30(5): 614-620 | doi:10.1093/bioinformatics/btt593
+
+Forward reads file.................: tmp/trimmed_jun_f.fastq.gz
+Reverse reads file.................: tmp/trimmed_jun_r.fastq.gz
+PHRED..............................: 33
+Using empirical frequencies........: YES
+Statistical method.................: OES
+Maximum assembly length............: 259
+Minimum assembly length............: 249
+p-value............................: 0.050000
+Quality score threshold (trimming).: 0
+Minimum read size after trimming...: 1
+Maximal ratio of uncalled bases....: 0.000000
+Minimum overlap....................: 12
+Scoring method.....................: Scaled score
+Threads............................: 48
+
+Allocating memory..................: 200,000,000 bytes
+Computing empirical frequencies....: DONE
+  A: 0.207349
+  C: 0.257753
+  G: 0.276174
+  T: 0.258725
+  0 uncalled bases
+Assemblying reads: 0%Assemblying reads: 0%Assemblying reads: 0%Assemblying reads: 0%Assemblying reads: 1%Assemblying reads: 1%Assemblying reads: 1%Assemblying reads: 2%Assemblying reads: 2%Assemblying reads: 2%Assemblying reads: 3%Assemblying reads: 3%Assemblying reads: 3%Assemblying reads: 3%Assemblying reads: 4%Assemblying reads: 4%Assemblying reads: 4%Assemblying reads: 5%Assemblying reads: 5%Assemblying reads: 5%Assemblying reads: 6%Assemblying reads: 6%Assemblying reads: 6%Assemblying reads: 7%Assemblying reads: 7%Assemblying reads: 7%Assemblying reads: 8%Assemblying reads: 8%Assemblying reads: 8%Assemblying reads: 9%Assemblying reads: 9%Assemblying reads: 9%Assemblying reads: 10%Assemblying reads: 10%Assemblying reads: 11%Assemblying reads: 11%Assemblying reads: 11%Assemblying reads: 12%Assemblying reads: 12%Assemblying reads: 12%Assemblying reads: 13%Assemblying reads: 13%Assemblying reads: 13%Assemblying reads: 14%Assemblying reads: 14%Assemblying reads: 14%Assemblying reads: 14%Assemblying reads: 15%Assemblying reads: 15%Assemblying reads: 15%Assemblying reads: 16%Assemblying reads: 16%Assemblying reads: 16%Assemblying reads: 17%Assemblying reads: 17%Assemblying reads: 17%Assemblying reads: 18%Assemblying reads: 18%Assemblying reads: 18%Assemblying reads: 19%Assemblying reads: 19%Assemblying reads: 19%Assemblying reads: 20%Assemblying reads: 20%Assemblying reads: 20%Assemblying reads: 21%Assemblying reads: 21%Assemblying reads: 21%Assemblying reads: 22%Assemblying reads: 22%Assemblying reads: 23%Assemblying reads: 23%Assemblying reads: 23%Assemblying reads: 24%Assemblying reads: 24%Assemblying reads: 24%Assemblying reads: 25%Assemblying reads: 25%Assemblying reads: 25%Assemblying reads: 26%Assemblying reads: 26%Assemblying reads: 27%Assemblying reads: 27%Assemblying reads: 27%Assemblying reads: 28%Assemblying reads: 28%Assemblying reads: 28%Assemblying reads: 29%Assemblying reads: 29%Assemblying reads: 29%Assemblying reads: 30%Assemblying reads: 30%Assemblying reads: 30%Assemblying reads: 31%Assemblying reads: 31%Assemblying reads: 31%Assemblying reads: 32%Assemblying reads: 32%Assemblying reads: 32%Assemblying reads: 33%Assemblying reads: 33%Assemblying reads: 33%Assemblying reads: 34%Assemblying reads: 34%Assemblying reads: 34%Assemblying reads: 35%Assemblying reads: 35%Assemblying reads: 35%Assemblying reads: 36%Assemblying reads: 36%Assemblying reads: 36%Assemblying reads: 36%Assemblying reads: 37%Assemblying reads: 37%Assemblying reads: 37%Assemblying reads: 38%Assemblying reads: 38%Assemblying reads: 39%Assemblying reads: 39%Assemblying reads: 39%Assemblying reads: 40%Assemblying reads: 40%Assemblying reads: 40%Assemblying reads: 41%Assemblying reads: 41%Assemblying reads: 41%Assemblying reads: 42%Assemblying reads: 42%Assemblying reads: 42%Assemblying reads: 43%Assemblying reads: 43%Assemblying reads: 44%Assemblying reads: 44%Assemblying reads: 44%Assemblying reads: 45%Assemblying reads: 45%Assemblying reads: 45%Assemblying reads: 46%Assemblying reads: 46%Assemblying reads: 46%Assemblying reads: 47%Assemblying reads: 47%Assemblying reads: 47%Assemblying reads: 48%Assemblying reads: 48%Assemblying reads: 48%Assemblying reads: 49%Assemblying reads: 49%Assemblying reads: 49%Assemblying reads: 49%Assemblying reads: 50%Assemblying reads: 50%Assemblying reads: 50%Assemblying reads: 51%Assemblying reads: 51%Assemblying reads: 51%Assemblying reads: 52%Assemblying reads: 52%Assemblying reads: 53%Assemblying reads: 53%Assemblying reads: 53%Assemblying reads: 54%Assemblying reads: 54%Assemblying reads: 54%Assemblying reads: 55%Assemblying reads: 55%Assemblying reads: 55%Assemblying reads: 56%Assemblying reads: 56%Assemblying reads: 56%Assemblying reads: 56%Assemblying reads: 57%Assemblying reads: 57%Assemblying reads: 57%Assemblying reads: 58%Assemblying reads: 58%Assemblying reads: 58%Assemblying reads: 59%Assemblying reads: 59%Assemblying reads: 59%Assemblying reads: 60%Assemblying reads: 60%Assemblying reads: 60%Assemblying reads: 60%Assemblying reads: 61%Assemblying reads: 61%Assemblying reads: 61%Assemblying reads: 62%Assemblying reads: 62%Assemblying reads: 62%Assemblying reads: 63%Assemblying reads: 63%Assemblying reads: 63%Assemblying reads: 64%Assemblying reads: 64%Assemblying reads: 64%Assemblying reads: 65%Assemblying reads: 65%Assemblying reads: 65%Assemblying reads: 66%Assemblying reads: 66%Assemblying reads: 66%Assemblying reads: 67%Assemblying reads: 67%Assemblying reads: 67%Assemblying reads: 68%Assemblying reads: 68%Assemblying reads: 68%Assemblying reads: 69%Assemblying reads: 69%Assemblying reads: 69%Assemblying reads: 70%Assemblying reads: 70%Assemblying reads: 70%Assemblying reads: 70%Assemblying reads: 71%Assemblying reads: 71%Assemblying reads: 71%Assemblying reads: 72%Assemblying reads: 72%Assemblying reads: 72%Assemblying reads: 73%Assemblying reads: 73%Assemblying reads: 73%Assemblying reads: 73%Assemblying reads: 74%Assemblying reads: 74%Assemblying reads: 74%Assemblying reads: 75%Assemblying reads: 75%Assemblying reads: 75%Assemblying reads: 76%Assemblying reads: 76%Assemblying reads: 76%Assemblying reads: 77%Assemblying reads: 77%Assemblying reads: 77%Assemblying reads: 78%Assemblying reads: 78%Assemblying reads: 78%Assemblying reads: 78%Assemblying reads: 79%Assemblying reads: 79%Assemblying reads: 79%Assemblying reads: 80%Assemblying reads: 80%Assemblying reads: 80%Assemblying reads: 81%Assemblying reads: 81%Assemblying reads: 81%Assemblying reads: 82%Assemblying reads: 82%Assemblying reads: 82%Assemblying reads: 83%Assemblying reads: 83%Assemblying reads: 83%Assemblying reads: 84%Assemblying reads: 84%Assemblying reads: 85%Assemblying reads: 85%Assemblying reads: 85%Assemblying reads: 86%Assemblying reads: 86%Assemblying reads: 86%Assemblying reads: 87%Assemblying reads: 87%Assemblying reads: 87%Assemblying reads: 88%Assemblying reads: 88%Assemblying reads: 88%Assemblying reads: 89%Assemblying reads: 89%Assemblying reads: 89%Assemblying reads: 90%Assemblying reads: 90%Assemblying reads: 90%Assemblying reads: 91%Assemblying reads: 91%Assemblying reads: 91%Assemblying reads: 92%Assemblying reads: 92%Assemblying reads: 92%Assemblying reads: 93%Assemblying reads: 93%Assemblying reads: 93%Assemblying reads: 94%Assemblying reads: 94%Assemblying reads: 94%Assemblying reads: 95%Assemblying reads: 95%Assemblying reads: 95%Assemblying reads: 96%Assemblying reads: 96%Assemblying reads: 96%Assemblying reads: 97%Assemblying reads: 97%Assemblying reads: 98%Assemblying reads: 98%Assemblying reads: 98%Assemblying reads: 99%Assemblying reads: 99%Assemblying reads: 99%Assemblying reads: 100%
+
+Assembled reads ...................: 34,307,489 / 34,942,238 (98.183%)
+Discarded reads ...................: 634,749 / 34,942,238 (1.817%)
+Not assembled reads ...............: 0 / 34,942,238 (0.000%)
+Assembled reads file...............: 001-merged_reads/merged_jun.assembled.fastq
+Discarded reads file...............: 001-merged_reads/merged_jun.discarded.fastq
+Unassembled forward reads file.....: 001-merged_reads/merged_jun.unassembled.forward.fastq
+Unassembled reverse reads file.....: 001-merged_reads/merged_jun.unassembled.reverse.fastq
+This is cutadapt 1.18 with Python 3.6.6
+Command line parameters: -g ^CCTAGG -G GGATCCAAGCTT -e 0.1 -u -1 -U -1 -O 6 --max-n=0 -j 4 --discard-untrimmed -o tmp/trimmed_fos_f.fastq.gz -p tmp/trimmed_fos_r.fastq.gz /tungstenfs/groups/gbioinfo/seqdata/2752F2-1_210310_NB501735_0670_AHJ2YFAFX2_CGATGT-NoIndex_L000_R1_001.fastq.gz /tungstenfs/groups/gbioinfo/seqdata/2752F2-1_210310_NB501735_0670_AHJ2YFAFX2_CGATGT-NoIndex_L000_R2_001.fastq.gz
+Processing reads on 4 cores in paired-end mode ...
+Finished in 1153.67 s (32 us/read; 1.85 M reads/minute).
+
+=== Summary ===
+
+Total read pairs processed:         35,554,204
+  Read 1 with adapter:              35,280,650 (99.2%)
+  Read 2 with adapter:              34,321,952 (96.5%)
+Pairs with too many N:                  62,379 (0.2%)
+Pairs written (passing filters):    34,058,313 (95.8%)
+
+Total basepairs processed: 10,737,369,608 bp
+  Read 1: 5,368,684,804 bp
+  Read 2: 5,368,684,804 bp
+Total written (filtered):  9,162,949,555 bp (85.3%)
+  Read 1: 4,904,397,072 bp
+  Read 2: 4,258,552,483 bp
+
+=== First read: Adapter 1 ===
+
+Sequence: CCTAGG; Type: anchored 5'; Length: 6; Trimmed: 35280650 times.
+
+No. of allowed errors:
+0-6 bp: 0
+
+Overview of removed sequences
+length	count	expect	max.err	error counts
+6	35280650	8680.2	0	35280650
+
+=== Second read: Adapter 2 ===
+
+Sequence: GGATCCAAGCTT; Type: regular 5'; Length: 12; Trimmed: 34321952 times.
+
+No. of allowed errors:
+0-9 bp: 0; 10-12 bp: 1
+
+Overview of removed sequences
+length	count	expect	max.err	error counts
+8	11	542.5	0	11
+11	1	8.5	1	0 1
+14	1	2.1	1	1
+15	92	2.1	1	91 1
+16	37	2.1	1	37
+17	231	2.1	1	226 5
+18	1195	2.1	1	1182 13
+19	1306	2.1	1	1284 22
+20	2514	2.1	1	2476 38
+21	12736	2.1	1	12594 142
+22	21766	2.1	1	21306 460
+23	92694	2.1	1	90462 2232
+24	982495	2.1	1	942797 39698
+25	33165854	2.1	1	32988159 177695
+26	40878	2.1	1	21157 19721
+27	47	2.1	1	33 14
+28	3	2.1	1	3
+29	2	2.1	1	2
+30	1	2.1	1	1
+31	3	2.1	1	3
+32	2	2.1	1	2
+33	1	2.1	1	1
+34	4	2.1	1	4
+35	3	2.1	1	3
+36	2	2.1	1	2
+37	2	2.1	1	2
+38	1	2.1	1	1
+39	4	2.1	1	1 3
+40	1	2.1	1	0 1
+42	1	2.1	1	1
+43	1	2.1	1	1
+44	2	2.1	1	2
+46	1	2.1	1	1
+47	1	2.1	1	1
+48	3	2.1	1	3
+49	2	2.1	1	2
+50	13	2.1	1	13
+51	2	2.1	1	2
+52	3	2.1	1	3
+54	3	2.1	1	3
+57	1	2.1	1	1
+58	15	2.1	1	15
+59	1	2.1	1	1
+60	2	2.1	1	2
+61	4	2.1	1	4
+62	1	2.1	1	1
+64	1	2.1	1	1
+65	2	2.1	1	2
+67	1	2.1	1	1
+68	4	2.1	1	3 1
+141	1	2.1	1	0 1
+
+ ____  _____    _    ____ 
+|  _ \| ____|  / \  |  _ \
+| |_) |  _|   / _ \ | |_) |
+|  __/| |___ / ___ \|  _ <
+|_|   |_____/_/   \_\_| \_\
+
+PEAR v0.9.11 [Nov 5, 2017]
+
+Citation - PEAR: a fast and accurate Illumina Paired-End reAd mergeR
+Zhang et al (2014) Bioinformatics 30(5): 614-620 | doi:10.1093/bioinformatics/btt593
+
+Forward reads file.................: tmp/trimmed_fos_f.fastq.gz
+Reverse reads file.................: tmp/trimmed_fos_r.fastq.gz
+PHRED..............................: 33
+Using empirical frequencies........: YES
+Statistical method.................: OES
+Maximum assembly length............: 259
+Minimum assembly length............: 249
+p-value............................: 0.050000
+Quality score threshold (trimming).: 0
+Minimum read size after trimming...: 1
+Maximal ratio of uncalled bases....: 0.000000
+Minimum overlap....................: 12
+Scoring method.....................: Scaled score
+Threads............................: 48
+
+Allocating memory..................: 200,000,000 bytes
+Computing empirical frequencies....: DONE
+  A: 0.255561
+  C: 0.216593
+  G: 0.269524
+  T: 0.258321
+  0 uncalled bases
+Assemblying reads: 0%Assemblying reads: 0%Assemblying reads: 0%Assemblying reads: 0%Assemblying reads: 1%Assemblying reads: 1%Assemblying reads: 1%Assemblying reads: 2%Assemblying reads: 2%Assemblying reads: 2%Assemblying reads: 3%Assemblying reads: 3%Assemblying reads: 3%Assemblying reads: 4%Assemblying reads: 4%Assemblying reads: 4%Assemblying reads: 5%Assemblying reads: 5%Assemblying reads: 5%Assemblying reads: 6%Assemblying reads: 6%Assemblying reads: 6%Assemblying reads: 7%Assemblying reads: 7%Assemblying reads: 7%Assemblying reads: 8%Assemblying reads: 8%Assemblying reads: 8%Assemblying reads: 9%Assemblying reads: 9%Assemblying reads: 9%Assemblying reads: 10%Assemblying reads: 10%Assemblying reads: 11%Assemblying reads: 11%Assemblying reads: 11%Assemblying reads: 12%Assemblying reads: 12%Assemblying reads: 12%Assemblying reads: 13%Assemblying reads: 13%Assemblying reads: 13%Assemblying reads: 14%Assemblying reads: 14%Assemblying reads: 14%Assemblying reads: 15%Assemblying reads: 15%Assemblying reads: 15%Assemblying reads: 16%Assemblying reads: 16%Assemblying reads: 16%Assemblying reads: 17%Assemblying reads: 17%Assemblying reads: 17%Assemblying reads: 18%Assemblying reads: 18%Assemblying reads: 18%Assemblying reads: 19%Assemblying reads: 19%Assemblying reads: 19%Assemblying reads: 20%Assemblying reads: 20%Assemblying reads: 20%Assemblying reads: 21%Assemblying reads: 21%Assemblying reads: 21%Assemblying reads: 22%Assemblying reads: 22%Assemblying reads: 22%Assemblying reads: 23%Assemblying reads: 23%Assemblying reads: 24%Assemblying reads: 24%Assemblying reads: 24%Assemblying reads: 25%Assemblying reads: 25%Assemblying reads: 25%Assemblying reads: 26%Assemblying reads: 26%Assemblying reads: 26%Assemblying reads: 27%Assemblying reads: 27%Assemblying reads: 28%Assemblying reads: 28%Assemblying reads: 28%Assemblying reads: 29%Assemblying reads: 29%Assemblying reads: 29%Assemblying reads: 30%Assemblying reads: 30%Assemblying reads: 30%Assemblying reads: 31%Assemblying reads: 31%Assemblying reads: 31%Assemblying reads: 32%Assemblying reads: 32%Assemblying reads: 32%Assemblying reads: 33%Assemblying reads: 33%Assemblying reads: 33%Assemblying reads: 34%Assemblying reads: 34%Assemblying reads: 34%Assemblying reads: 35%Assemblying reads: 35%Assemblying reads: 35%Assemblying reads: 36%Assemblying reads: 36%Assemblying reads: 36%Assemblying reads: 37%Assemblying reads: 37%Assemblying reads: 37%Assemblying reads: 38%Assemblying reads: 38%Assemblying reads: 39%Assemblying reads: 39%Assemblying reads: 39%Assemblying reads: 40%Assemblying reads: 40%Assemblying reads: 40%Assemblying reads: 41%Assemblying reads: 41%Assemblying reads: 42%Assemblying reads: 42%Assemblying reads: 42%Assemblying reads: 43%Assemblying reads: 43%Assemblying reads: 43%Assemblying reads: 44%Assemblying reads: 44%Assemblying reads: 44%Assemblying reads: 45%Assemblying reads: 45%Assemblying reads: 45%Assemblying reads: 46%Assemblying reads: 46%Assemblying reads: 46%Assemblying reads: 47%Assemblying reads: 47%Assemblying reads: 47%Assemblying reads: 48%Assemblying reads: 48%Assemblying reads: 48%Assemblying reads: 49%Assemblying reads: 49%Assemblying reads: 49%Assemblying reads: 50%Assemblying reads: 50%Assemblying reads: 50%Assemblying reads: 51%Assemblying reads: 51%Assemblying reads: 51%Assemblying reads: 52%Assemblying reads: 52%Assemblying reads: 53%Assemblying reads: 53%Assemblying reads: 53%Assemblying reads: 54%Assemblying reads: 54%Assemblying reads: 54%Assemblying reads: 55%Assemblying reads: 55%Assemblying reads: 55%Assemblying reads: 56%Assemblying reads: 56%Assemblying reads: 56%Assemblying reads: 57%Assemblying reads: 57%Assemblying reads: 57%Assemblying reads: 58%Assemblying reads: 58%Assemblying reads: 58%Assemblying reads: 59%Assemblying reads: 59%Assemblying reads: 59%Assemblying reads: 59%Assemblying reads: 60%Assemblying reads: 60%Assemblying reads: 60%Assemblying reads: 61%Assemblying reads: 61%Assemblying reads: 61%Assemblying reads: 62%Assemblying reads: 62%Assemblying reads: 62%Assemblying reads: 63%Assemblying reads: 63%Assemblying reads: 63%Assemblying reads: 64%Assemblying reads: 64%Assemblying reads: 64%Assemblying reads: 65%Assemblying reads: 65%Assemblying reads: 65%Assemblying reads: 66%Assemblying reads: 66%Assemblying reads: 66%Assemblying reads: 67%Assemblying reads: 67%Assemblying reads: 67%Assemblying reads: 68%Assemblying reads: 68%Assemblying reads: 68%Assemblying reads: 69%Assemblying reads: 69%Assemblying reads: 69%Assemblying reads: 70%Assemblying reads: 70%Assemblying reads: 70%Assemblying reads: 71%Assemblying reads: 71%Assemblying reads: 71%Assemblying reads: 72%Assemblying reads: 72%Assemblying reads: 72%Assemblying reads: 72%Assemblying reads: 73%Assemblying reads: 73%Assemblying reads: 73%Assemblying reads: 74%Assemblying reads: 74%Assemblying reads: 74%Assemblying reads: 75%Assemblying reads: 75%Assemblying reads: 75%Assemblying reads: 76%Assemblying reads: 76%Assemblying reads: 76%Assemblying reads: 77%Assemblying reads: 77%Assemblying reads: 77%Assemblying reads: 78%Assemblying reads: 78%Assemblying reads: 78%Assemblying reads: 79%Assemblying reads: 79%Assemblying reads: 79%Assemblying reads: 80%Assemblying reads: 80%Assemblying reads: 80%Assemblying reads: 81%Assemblying reads: 81%Assemblying reads: 81%Assemblying reads: 82%Assemblying reads: 82%Assemblying reads: 82%Assemblying reads: 83%Assemblying reads: 83%Assemblying reads: 83%Assemblying reads: 84%Assemblying reads: 84%Assemblying reads: 84%Assemblying reads: 85%Assemblying reads: 85%Assemblying reads: 86%Assemblying reads: 86%Assemblying reads: 86%Assemblying reads: 87%Assemblying reads: 87%Assemblying reads: 87%Assemblying reads: 88%Assemblying reads: 88%Assemblying reads: 88%Assemblying reads: 89%Assemblying reads: 89%Assemblying reads: 89%Assemblying reads: 90%Assemblying reads: 90%Assemblying reads: 90%Assemblying reads: 91%Assemblying reads: 91%Assemblying reads: 91%Assemblying reads: 92%Assemblying reads: 92%Assemblying reads: 92%Assemblying reads: 93%Assemblying reads: 93%Assemblying reads: 93%Assemblying reads: 94%Assemblying reads: 94%Assemblying reads: 94%Assemblying reads: 95%Assemblying reads: 95%Assemblying reads: 96%Assemblying reads: 96%Assemblying reads: 96%Assemblying reads: 97%Assemblying reads: 97%Assemblying reads: 97%Assemblying reads: 98%Assemblying reads: 98%Assemblying reads: 98%Assemblying reads: 99%Assemblying reads: 99%Assemblying reads: 99%Assemblying reads: 100%
+
+Assembled reads ...................: 33,568,720 / 34,058,313 (98.562%)
+Discarded reads ...................: 489,593 / 34,058,313 (1.438%)
+Not assembled reads ...............: 0 / 34,058,313 (0.000%)
+Assembled reads file...............: 001-merged_reads/merged_fos.assembled.fastq
+Discarded reads file...............: 001-merged_reads/merged_fos.discarded.fastq
+Unassembled forward reads file.....: 001-merged_reads/merged_fos.unassembled.forward.fastq
+Unassembled reverse reads file.....: 001-merged_reads/merged_fos.unassembled.reverse.fastq
