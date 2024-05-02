@@ -2,26 +2,12 @@ This repository contains all the code used to reproduce the analyses an results 
 
 Requirements:
 
-- cutadapt 1.1861
-- PEAR 0.9.1162
-- R version 4.3.2 (2023-10-31)
-- perl 5.16.3
-- DiMsum 1.3
-- MoCHI 1.0
+cutadapt 1.1861, PEAR 0.9.1162, R version 4.3.2 (2023-10-31), perl 5.16.3, DiMsum 1.3, MoCHI 1.0
 
 
 R packages:
 
-ggplot2_3.5.0               
-gplots_3.1.3.1              
-flowCore_2.14.2             
-readxl_1.4.3                
-ShortRead_1.60.0            
-BiocParallel_1.36.0         
-BiocGenerics_0.48.1         
-rgl_1.3.1                   
-stringr_1.5.1              
-stringdist_0.9.12 
+ggplot2_3.5.0, gplots_3.1.3.1, flowCore_2.14.2, readxl_1.4.3, ShortRead_1.60.0, BiocParallel_1.36.0, BiocGenerics_0.48.1, rgl_1.3.1, stringr_1.5.1, stringdist_0.9.12 
 
 
 To run the analyses:
