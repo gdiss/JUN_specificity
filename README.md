@@ -1,4 +1,4 @@
-This repostory contains all the code used to reproduce the analyses an results presented in The genetic architecture of protein interaction affinity and specificity.
+This repository contains all the code used to reproduce the analyses an results presented in The genetic architecture of protein interaction affinity and specificity.
 
 Requirements:
 cutadapt 1.1861
