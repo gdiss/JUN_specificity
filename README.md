@@ -3,10 +3,15 @@ This repository contains all the code used to reproduce the analyses an results 
 Requirements:
 
 cutadapt 1.1861
-PEAR 0.9.1162 
+
+PEAR 0.9.1162
+
 R version 4.3.2 (2023-10-31)
-perl 5.16.3 
+
+perl 5.16.3
+
 DiMsum 1.3
+
 MoCHI 1.0
 
 
