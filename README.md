@@ -1,6 +1,7 @@
 This repository contains all the code used to reproduce the analyses an results presented in The genetic architecture of protein interaction affinity and specificity.
 
 Requirements:
+
 cutadapt 1.1861
 PEAR 0.9.1162 
 R version 4.3.2 (2023-10-31)
@@ -10,6 +11,7 @@ MoCHI 1.0
 
 
 R packages:
+
 ggplot2_3.5.0               
 gplots_3.1.3.1              
 flowCore_2.14.2             
@@ -23,6 +25,7 @@ stringdist_0.9.12
 
 
 To run the analyses:
+
 - Clone the repository or copy the files, create folder 001-merged_reads, 005-Mochi_output, 007-figures and tmp
 - Download the fastq files from https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE245326 and place them in the 000-data folder
 - Merge barcode-variant association paired-end reads by entering ./001-merge_reads.sh in a bash terminal
