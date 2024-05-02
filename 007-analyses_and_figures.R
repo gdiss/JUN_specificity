@@ -794,7 +794,7 @@ ra[2] = ceiling(ra[2]*100)/100
 # we make the color scale symmetrical by using max(abs(ra))
 color = c(colorRampPalette(c("blue","grey90"))(max(abs(ra*100))), colorRampPalette(c("grey90","red"))(max(abs(ra*100))))
 
-pdf("007-figures/Fig6A_heatmap_specificity.pdf",width=14)
+pdf("007-figures/Fig6a_heatmap_specificity.pdf",width=14)
 image(1:nrow(m),1:ncol(m),m,xlab="",ylab="",axes=F, col=color, zlim=c(-max(ra),max(ra)))
 box()
 axis(1, at = seq(0.5,nrow(m)+0.5,20), labels = F)
@@ -831,12 +831,20 @@ axis(1)
 dev.off()
 
 
-pdf("007-figures/FigS9_dendrogram_partners.pdf")
+pdf("007-figures/Fig6a_dendrogram_partners.pdf")
 plot(hc)
 plot(as.dendrogram(hc))
 dev.off()
 
 
+m2 = m[rowSums(is.na(m)) < ncol(m) - 10,]
+co = cor(t(m2),use="pairwise.complete.obs")
+hc2 = hclust(as.dist(1-co))
+
+pdf("007-figures/FigS9_dendro_var.pdf",width=16)
+par(cex=0.2)
+plot(as.dendrogram(hc2))
+dev.off()
 
 ################################################################################
 # FigS10: Numbers of specificity mutations and positions
