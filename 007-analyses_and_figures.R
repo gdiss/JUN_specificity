@@ -197,7 +197,7 @@ dev.off()
 
 
 ################################################################################
-# Fig S3: Correlation with binding scores from an earlier study 
+# Fig S3a: Correlation with binding scores from an earlier study 
 ################################################################################
 
 elife_singles = elife[!duplicated(elife$id2),]
@@ -214,6 +214,59 @@ dev.off()
 
 
 ################################################################################
+# Fig S4: ROC curve
+################################################################################
+
+# load biogrid and keep only physical interactions between JUN and any bZIP
+biogrid = read.delim("../000-data/BIOGRID-ORGANISM-Homo_sapiens-4.4.234.tab3.txt")
+biogrid = biogrid[biogrid$Experimental.System.Type == "physical" & ((biogrid$Official.Symbol.Interactor.A == "JUN" & biogrid$Official.Symbol.Interactor.B %in% wt$Name[1:54]) | (biogrid$Official.Symbol.Interactor.B == "JUN" & biogrid$Official.Symbol.Interactor.A %in% wt$Name[1:54])),]
+
+# this forms the true positive set
+tp = unique(c(biogrid$Official.Symbol.Interactor.A,biogrid$Official.Symbol.Interactor.A))
+
+# true negative set corresponds to all negative controls present in the dataset
+tn = wt$Name[55:73]
+
+# sequence of binding score along which to measure AU-ROC
+r = range(binding_scores$fitness)
+sr = seq(r[2],r[1],-0.01)
+
+
+# load the full binding score dataset that also includes negative controls
+load("../004-dimsum_output/004-dimsum_output_fitness_replicates.RData")
+
+# binding scores for the true positive set
+tp_set = binding_scores[binding_scores$id == "0xx" & binding_scores$bZ %in% tp,]
+
+# for the negative set, we first need to map the nt_seq to the JUN variant x negative control IDs
+# first, let's select only JUN WT
+tmp = all_variants[substr(all_variants$nt_seq,1,198) == unique(substr(tp_set$nt_seq,1,198)),]
+# now, we need to identify the negative controls from the 4nt dummy sequence added at the end
+# this seqID was determined in 003-binding_scores.R the following way
+
+nt = c("a","t","g","c")
+wt$seqID = do.call("paste0",as.data.frame(expand.grid(nt,nt,nt,nt)))[1:nrow(wt)]
+
+tn_set = tmp[substr(tmp$nt_seq,199,202) %in% wt$seqID[55:73],]
+
+# ROC
+roc = sapply(sr,function(x){
+  tpr = nrow(tp_set[tp_set$fitness > x,]) / (nrow(tp_set[tp_set$fitness > x,]) + nrow(tp_set[tp_set$fitness <= x,]))
+  fpr = nrow(tn_set[tn_set$fitness > x,]) / (nrow(tn_set[tp_set$fitness > x,]) + nrow(tn_set[tn_set$fitness <= x,]))
+  c(tpr,fpr)
+})
+
+# AUC
+auc = sapply(2:ncol(roc),function(x){
+  (roc[2,x] - roc[2,x-1]) * roc[1,x] - (roc[2,x] - roc[2,x-1]) * (roc[1,x] - roc[1,x-1]) / 2
+})
+
+pdf("FigS4_AUROC.pdf")
+plot(roc[2,],roc[1,],xlab="False positive rate",ylab="True positivie rate rate")
+text(0.8,0.2, paste("AUC =",sprintf("%.2f",sum(auc))))
+dev.off()
+
+################################################################################
 # Fig 1e: Distribution binding scores
 ################################################################################
 
@@ -223,7 +276,7 @@ dev.off()
 
 
 ################################################################################
-# Fig S4: Confirmation by splitFAST
+# Fig S5: Confirmation by splitFAST
 ################################################################################
 
 # load fcs files
@@ -265,9 +318,9 @@ av_score = unlist(lapply(seq_along(fcs), function(i){
   x = x[x$SSC.H > 50000 & x$SSC.H < 200000 & x$SSC.W > 20000 & x$SSC.W < 85000 ,]
   
   plot(x$Alexa.Fluor.405.A, x$GFP.A, pch=".", log="xy")
-  abline(0,1)
-  abline(v=500)
-  x = x[!(x$GFP.A > x$Alexa.Fluor.405.A & x$Alexa.Fluor.405.A < 500),]
+  abline(-1.4,1.6)
+  abline(v=600)
+  x = x[x$GFP.A < 10^(log10(x$Alexa.Fluor.405.A)*1.6-1.4) & x$Alexa.Fluor.405.A > 600,]
   
   x$ratio = x$GFP.A / x$Alexa.Fluor.405.A
   
@@ -310,7 +363,7 @@ av_score3$deepPCA_diff = av_score3$deepPCA_score - av_score3$deepPCA_wt
 av_score3$deepPCA_diff_se = sqrt(av_score3$deepPCA_se_wt^2 + av_score3$deepPCA_se^2)
 
 
-pdf("007-figures/FigS4_confirmation_splitFAST.pdf",width=14)
+pdf("007-figures/FigS5_confirmation_splitFAST.pdf",width=14)
 par(mfrow=c(1,2))
 
 conf.int = cbind(av_score2$deepPCA_score - av_score2$deepPCA_se*1.96, av_score2$deepPCA_score + av_score2$deepPCA_se*1.96, av_score2$splitFAST_score - av_score2$splitFAST_se*1.96, av_score2$splitFAST_score + av_score2$splitFAST_se*1.96)
@@ -333,6 +386,28 @@ write.table(av_score3, file="000-data/TableS4_splitFAST_scores.txt", row.names=F
 
 
 
+
+exp_names[exp_names[,1] == "0xx",1] = "WT"
+
+tmp = do.call("rbind",lapply(seq_along(fcs), function(i){
+  
+  x = as.data.frame(exprs(fcs[[i]]))
+  
+  x = x[x$FSC.A > 42000 & x$FSC.A < 260000 & x$SSC.A > 25000 & x$SSC.A < 250000,]
+  
+  x = x[x$SSC.H > 50000 & x$SSC.H < 200000 & x$SSC.W > 20000 & x$SSC.W < 85000 ,]
+  
+  data.frame(GFP = log10(x$GFP.A), sample = paste(exp_names[,1],exp_names[,2],sep="_")[i])
+  
+  
+}))
+
+pdf("FigS5d_GFP_distri.pdf")
+ggplot(tmp, aes(x=sample, y=GFP)) + 
+  geom_violin(fill=NA) +
+  theme(axis.text.x=element_text(angle=90))
+dev.off()
+
 ################################################################################
 # Fig 1f: barplot binding scores wt partners
 ################################################################################
@@ -350,7 +425,7 @@ dev.off()
 
 ################################################################################
 # Fig 2a: heatmap of mutational effects
-# Fig S5: corresponding p-values
+# Fig S6: corresponding p-values
 ################################################################################
 
 # m is the matrix of absolute binding cores plotted in Fig S1
@@ -395,7 +470,7 @@ co = heat.colors((ra[2] - ra[1] ) * 100)
 co[1:(-log10(f)*100)] = "#000000"
 
 
-pdf("007-figures/FigS5_heatmap_mutational_effects_pval.pdf",width=14)
+pdf("007-figures/FigS6_heatmap_mutational_effects_pval.pdf",width=14)
 image(1:nrow(mp),1:ncol(mp),mp,xlab="",ylab="",axes=F, col=co, zlim=ra)
 box()
 axis(1, at = seq(0.5,nrow(mp)+0.5,20), labels = F)
@@ -411,7 +486,7 @@ dev.off()
 
 ################################################################################
 # Fig 2b: comparison binding scores across partners
-# Fig S6: all comparisons
+# Fig S7: all comparisons
 ################################################################################
 
 tmp = matrix(all_pairs$rel, ncol=52)
@@ -424,7 +499,7 @@ pdf("007-figures/Fig2b_comparison_binding_scores_across_partners.pdf")
 pairs(tmp[,c("JDP2","FOS","CREB5","ATF7")],upper.panel = NULL)
 dev.off()
 
-pdf("007-figures/FigS6_comparison_binding_scores_across_all_partners.pdf",width=28,height=28)
+pdf("007-figures/FigS7_comparison_binding_scores_across_all_partners.pdf",width=28,height=28)
 pairs(tmp[,ncol(tmp):1], pch=".", upper.panel = panel.cor.pearson, diag.panel = panel.hist40)
 dev.off()
 
@@ -466,6 +541,32 @@ pairs(partners[,c("ddG_bZ","Keit1","Keit2")],upper.panel = panel.cor.pearson)
 dev.off()
 
 
+
+
+################################################################################
+# Fig S8: Comparison of global effects to abundance measurements
+################################################################################
+
+# dummy encoding that corresponds to the abundancePCA is GTCA
+aPCA = all_variants[grep("gtca$",all_variants$nt_seq),]
+
+# match JUN mutant ID
+tmp = substr(binding_scores$nt_seq,1,198)
+k = !duplicated(tmp)
+tmp = cbind(binding_scores[k,],tmp[k])
+aPCA$id = tmp$id[match(substr(aPCA$nt_seq,1,198), tmp[,ncol(tmp)])]
+aPCA = aPCA[!is.na(aPCA$id),]
+
+aPCA = aPCA[,c("id","fitness")]
+tmp = binding_scores[binding_scores$bZ == "FOS",c("id","fitness","ddG_mut")]
+aPCA = merge(aPCA,tmp,by="id")
+names(aPCA) = c("id","aPCA","bPCA_FOS", "ddG")
+
+pdf("FigS8_aPCA.pdf",height=14)
+par(mfrow=c(2,1))
+plot(aPCA$aPCA, aPCA$bPCA_FOS, xlab="abundancePCA score", ylab="binding score with FOS")
+plot(aPCA$aPCA, aPCA$ddG, xlab="abundancePCA score", ylab="ddG")
+dev.off()
 
 ################################################################################
 # Fig 4: Prediction global effects
@@ -625,7 +726,7 @@ dev.off()
 
 
 ################################################################################
-# Fig 5a and S7: Specificity plots
+# Fig 5a and S9: Specificity plots
 ################################################################################
 
 lin = read.delim("005-Mochi_output/mochi_model_pymochi_modabs/task_1/weights/linears_weights_Binding.txt")
@@ -663,7 +764,7 @@ dev.off()
 
 
 
-pdf("007-figures/FigS7_specificity_plots.pdf")
+pdf("007-figures/FigS9_specificity_plots.pdf")
 par(mar=c(0,0,0,0),oma=c(4,4,4,4),mfrow=c(4,2),xpd=T)
 for(i in 1:length(bl)){
   
@@ -773,7 +874,7 @@ dev.off()
 
 
 ################################################################################
-# Fig 6a, S8,9: heatmap of specific effects, corresponding p-values and dendrogram
+# Fig 6a, S10,11: heatmap of specific effects, corresponding p-values and dendrogram
 ################################################################################
 
 m = matrix(all_pairs$spe[all_pairs$bZ != "ATF4" & all_pairs$id != "0xx"], ncol=51)
@@ -817,7 +918,7 @@ ra[2] = ceiling(ra[2]*100)/100
 co = heat.colors((ra[2] - ra[1] ) * 100)
 co[1:(-log10(f)*100)] = "#000000"
 
-pdf("007-figures/FigS8_heatmap_pval_specificity.pdf",width=14)
+pdf("007-figures/FigS10_heatmap_pval_specificity.pdf",width=14)
 image(1:nrow(mp),1:ncol(mp),mp,xlab="",ylab="",axes=F, col=co, zlim=ra)
 box()
 axis(1, at = seq(0.5,nrow(mp)+0.5,20), labels = F)
@@ -841,13 +942,13 @@ m2 = m[rowSums(is.na(m)) < ncol(m) - 10,]
 co = cor(t(m2),use="pairwise.complete.obs")
 hc2 = hclust(as.dist(1-co))
 
-pdf("007-figures/FigS9_dendro_var.pdf",width=16)
+pdf("007-figures/FigS11_dendro_var.pdf",width=16)
 par(cex=0.2)
 plot(as.dendrogram(hc2))
 dev.off()
 
 ################################################################################
-# FigS10: Numbers of specificity mutations and positions
+# FigS12: Numbers of specificity mutations and positions
 ################################################################################
 
 # number of pairs with strong changes in specificity
@@ -923,7 +1024,7 @@ dual_part = unique(binding_scores$bZ[
 ])
 
 
-pdf("007-figures/FigS10_quantification_specificity_mutations.pdf")
+pdf("007-figures/FigS12_quantification_specificity_mutations.pdf")
 par(mfrow=c(2,2))
 barplot(c(neg_pairs,pos_pairs), col = c("cornflowerblue","red"),names.arg = c("decreased","increased"),ylab="Number of variant:partner pairs",xlab="")
 mtext("specific effects on binding",side=1,line=3)
@@ -935,7 +1036,7 @@ dev.off()
 
 
 ################################################################################
-# FigS11: Numbers of specificity mutations and positions
+# FigS13: Numbers of specificity mutations and positions
 # while considering only partners with WT binding scores in the linear range
 ################################################################################
 
@@ -1007,7 +1108,7 @@ dual_part = unique(bind_lin$bZ[
 ])
 
 
-pdf("007-figures/FigS11_quantification_specificity_mutations_restricted.pdf")
+pdf("007-figures/FigS13_quantification_specificity_mutations_restricted.pdf")
 par(mfrow=c(2,2))
 barplot(c(neg_pairs,pos_pairs), col = c("cornflowerblue","red"),names.arg = c("decreased","increased"),ylab="Number of variant:partner pairs",xlab="")
 mtext("specific effects on binding",side=1,line=3)

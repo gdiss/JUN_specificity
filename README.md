@@ -1,19 +1,31 @@
 This repository contains all the code used to reproduce the analyses an results presented in The genetic architecture of protein interaction affinity and specificity.
 
 Requirements:
-
-cutadapt 1.1861, PEAR 0.9.1162, R version 4.3.2 (2023-10-31), perl 5.16.3, DiMsum 1.3, MoCHI 1.0
+cutadapt 1.1861
+PEAR 0.9.1162 
+R version 4.3.2 (2023-10-31)
+perl 5.16.3 
+DiMsum 1.3
+MoCHI 1.0
 
 
 R packages:
-
-ggplot2_3.5.0, gplots_3.1.3.1, flowCore_2.14.2, readxl_1.4.3, ShortRead_1.60.0, BiocParallel_1.36.0, BiocGenerics_0.48.1, rgl_1.3.1, stringr_1.5.1, stringdist_0.9.12 
+ggplot2_3.5.0               
+gplots_3.1.3.1              
+flowCore_2.14.2             
+readxl_1.4.3                
+ShortRead_1.60.0            
+BiocParallel_1.36.0         
+BiocGenerics_0.48.1         
+rgl_1.3.1                   
+stringr_1.5.1              
+stringdist_0.9.12 
 
 
 To run the analyses:
-
 - Clone the repository or copy the files, create folder 001-merged_reads, 005-Mochi_output, 007-figures and tmp
 - Download the fastq files from https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE245326 and place them in the 000-data folder
+- Download the Biogrid file from https://downloads.thebiogrid.org/File/BioGRID/Release-Archive/BIOGRID-4.4.234/BIOGRID-ORGANISM-4.4.234.tab3.zip and place it in the 000-data folder
 - Merge barcode-variant association paired-end reads by entering ./001-merge_reads.sh in a bash terminal
 - Determine barcode-variant association by copy-pasting the code from 002-bar_var_association.R inside a R console
 - Process deepPCA data and build the count tables by copy-pasting the code from 003-binding_Score.R inside a R console
