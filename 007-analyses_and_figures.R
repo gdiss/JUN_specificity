@@ -8,6 +8,7 @@ library(parallel)
 library(gplots)
 library(ggplot2)
 library(stringr)
+library(gridExtra)
 
 
 ################################################################################
@@ -266,14 +267,6 @@ plot(roc[2,],roc[1,],xlab="False positive rate",ylab="True positivie rate rate")
 text(0.8,0.2, paste("AUC =",sprintf("%.2f",sum(auc))))
 dev.off()
 
-################################################################################
-# Fig 1e: Distribution binding scores
-################################################################################
-
-pdf("008-figures/Fig1e_distribution_binding_Scores.pdf")
-hist(binding_scores$fitness[!binding_scores$filt],breaks=40,xlab="Binding score", ylab="Counts (x10^3)")
-dev.off()
-
 
 ################################################################################
 # Fig S5: Confirmation by splitFAST
@@ -306,30 +299,53 @@ par(mfrow=c(2,2))
 av_score = unlist(lapply(seq_along(fcs), function(i){
   
   x = as.data.frame(exprs(fcs[[i]]))
+  x = x[x$FSC.A > 0 & x$SSC.A > 0 & x$SSC.H > 0 & x$SSC.W > 0 & x$GFP.A > 0 & x$Alexa.Fluor.405.A > 0,]
   
-  plot(x$FSC.A, x$SSC.A, pch=".", log="xy", main = paste(exp_names[i,],collapse=" x "))
-  abline(v=c(42000,260000))
-  abline(h=c(25000,250000))
+  sp1 = ggplot(x, aes(x=FSC.A, y=SSC.A) ) +
+    geom_hex(bins = 70) +
+    scale_fill_continuous(type = "viridis") +
+    theme_bw() +
+    scale_x_continuous(trans='log10') +
+    scale_y_continuous(trans='log10') +
+    geom_vline(xintercept=c(42000,260000)) + 
+    geom_hline(yintercept=c(25000,250000))
+    
   x = x[x$FSC.A > 42000 & x$FSC.A < 260000 & x$SSC.A > 25000 & x$SSC.A < 250000,]
+  n2 = nrow(x)
+  sp1 = sp1 + annotate("text", x=250000, y=28000, label= paste0(n2,"/",n,", ",sprintf("%.1f",n2/n*100),"%"), hjust = 1) 
   
-  plot(x$SSC.H, x$SSC.W, pch=".", log="xy")
-  abline(v=c(50000,200000))
-  abline(h=c(20000,85000))
+  
+  sp2 = ggplot(x, aes(x=SSC.H, y=SSC.W) ) +
+    geom_hex(bins = 70) +
+    scale_fill_continuous(type = "viridis") +
+    theme_bw() +
+    scale_x_continuous(trans='log10') +
+    scale_y_continuous(trans='log10') +
+    geom_vline(xintercept=c(50000,200000)) + 
+    geom_hline(yintercept=c(20000,85000))
+  
   x = x[x$SSC.H > 50000 & x$SSC.H < 200000 & x$SSC.W > 20000 & x$SSC.W < 85000 ,]
+  n3 = nrow(x)
+  sp2 = sp2 + annotate("text", x=190000, y=22000, label= paste0(n3,"/",n2,", ",sprintf("%.1f",n3/n2*100),"%"), hjust = 1) 
   
-  plot(x$Alexa.Fluor.405.A, x$GFP.A, pch=".", log="xy")
-  abline(-1.4,1.6)
-  abline(v=600)
+  sp3 = ggplot(x, aes(x=Alexa.Fluor.405.A, y=GFP.A) ) +
+    geom_hex(bins = 70) +
+    scale_fill_continuous(type = "viridis") +
+    theme_bw() +
+    scale_x_continuous(trans='log10') +
+    scale_y_continuous(trans='log10') +
+    geom_vline(xintercept=600) + 
+    geom_abline(intercept = -1.4, slope = 1.6)
+  
   x = x[x$GFP.A < 10^(log10(x$Alexa.Fluor.405.A)*1.6-1.4) & x$Alexa.Fluor.405.A > 600,]
+  n4 = nrow(x)
   
+  sp3 = sp3 + annotate("text", x=650, y=10, label= paste0(n4,"/",n3,", ",sprintf("%.1f",n4/n3*100),"%"), hjust = 0) 
+  
+    
   x$ratio = x$GFP.A / x$Alexa.Fluor.405.A
   
-  if(!(exp_names[i,1] %in% c("empty","CFAST"))){
-    hist(x$ratio)
-  }else{
-    plot(1,type="n")
-  }
-  
+  grid.arrange(sp1, sp2, sp3, nrow=2, top = paste(exp_names[i,],collapse=" x "))
   
   mean(x$ratio[is.finite(x$ratio)])
   
@@ -372,8 +388,10 @@ plot(av_score2$deepPCA_score, av_score2$splitFAST_score, xlab="deepPCA binding s
 text(-1.3,0.6,paste("R =", sprintf("%.3f",r$estimate), "\np =", sprintf("%.1e",r$p.value)))
 segments(conf.int[,1], av_score2$splitFAST_score, conf.int[,2], av_score2$splitFAST_score)
 segments(av_score2$deepPCA_score, conf.int[,3], av_score2$deepPCA_score, conf.int[,4])
+dev.off()
 
 
+pdf("007-figures/Fig1e_confirmation_splitFAST.pdf",width=14)
 conf.int = cbind(av_score3$deepPCA_diff - av_score3$deepPCA_diff_se*1.96, av_score3$deepPCA_diff + av_score3$deepPCA_diff_se*1.96, av_score3$splitFAST_diff - av_score3$splitFAST_diff_se*1.96, av_score3$splitFAST_diff + av_score3$splitFAST_diff_se*1.96)
 r = cor.test(av_score3$deepPCA_diff, av_score3$splitFAST_diff)
 plot(av_score3$deepPCA_diff, av_score3$splitFAST_diff, xlab="deepPCA binding score, relative to wild-type", ylab="splitFAST binding score, relative to wild-type", xlim=range(conf.int[,1:2]), ylim=range(conf.int[,3:4]), main = "Relative binding scores")
@@ -408,15 +426,25 @@ ggplot(tmp, aes(x=sample, y=GFP)) +
   theme(axis.text.x=element_text(angle=90))
 dev.off()
 
+
 ################################################################################
-# Fig 1f: barplot binding scores wt partners
+# Fig 1f: Distribution binding scores
+################################################################################
+
+pdf("008-figures/Fig1f_distribution_binding_Scores.pdf")
+hist(binding_scores$fitness[!binding_scores$filt],breaks=40,xlab="Binding score", ylab="Counts (x10^3)")
+dev.off()
+
+
+################################################################################
+# Fig 1g: barplot binding scores wt partners
 ################################################################################
 
 wt_binding_scores = binding_scores$fitness[binding_scores$id == "0xx"]
 names(wt_binding_scores) = binding_scores$bZ[binding_scores$id == "0xx"]
 wt_ci = binding_scores$sigma[binding_scores$id == "0xx"]
 
-pdf("007-figures/Fig1f_barplot_wt_partners.pdf",height=14)
+pdf("007-figures/Fig1g_barplot_wt_partners.pdf",height=14)
 barplot2(sort(wt_binding_scores)-min(wt_binding_scores)+0.05,las=2,cex.names=0.7, offset = min(wt_binding_scores)-0.05, plot.ci = T, ci.l = sort(wt_binding_scores) - wt_ci[order(wt_binding_scores)], ci.u = sort(wt_binding_scores) + wt_ci[order(wt_binding_scores)], xlim = range(wt_binding_scores), horiz=T, axes=F)
 axis(3)
 mtext("Binding score with wild-type JUN", line=2)
