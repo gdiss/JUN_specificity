@@ -19,7 +19,7 @@ library(data.table)
 ###########################
 
 modweights_file <- "mochi_model_pymochi_modabs/task_1/weights/weights_BindingMod.txt"
-fitness_file <- "GD_JUNX.RData"
+fitness_file <- "input_Mochi.RData"
 
 ###########################
 ### Main
